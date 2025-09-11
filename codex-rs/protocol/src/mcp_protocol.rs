@@ -91,6 +91,11 @@ pub enum ClientRequest {
         request_id: RequestId,
         params: ResumeConversationParams,
     },
+    ArchiveConversation {
+        #[serde(rename = "id")]
+        request_id: RequestId,
+        params: ArchiveConversationParams,
+    },
     SendUserMessage {
         #[serde(rename = "id")]
         request_id: RequestId,
@@ -144,6 +149,10 @@ pub enum ClientRequest {
         request_id: RequestId,
     },
     GetUserAgent {
+        #[serde(rename = "id")]
+        request_id: RequestId,
+    },
+    UserInfo {
         #[serde(rename = "id")]
         request_id: RequestId,
     },
@@ -263,6 +272,18 @@ pub struct AddConversationSubscriptionResponse {
     pub subscription_id: Uuid,
 }
 
+/// The [`ConversationId`] must match the `rollout_path`.
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, TS)]
+#[serde(rename_all = "camelCase")]
+pub struct ArchiveConversationParams {
+    pub conversation_id: ConversationId,
+    pub rollout_path: PathBuf,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, TS)]
+#[serde(rename_all = "camelCase")]
+pub struct ArchiveConversationResponse {}
+
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, TS)]
 #[serde(rename_all = "camelCase")]
 pub struct RemoveConversationSubscriptionResponse {}
@@ -355,6 +376,16 @@ pub struct GetAuthStatusResponse {
 #[serde(rename_all = "camelCase")]
 pub struct GetUserAgentResponse {
     pub user_agent: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, TS)]
+#[serde(rename_all = "camelCase")]
+pub struct UserInfoResponse {
+    /// Note: `alleged_user_email` is not currently verified. We read it from
+    /// the local auth.json, which the user could theoretically modify. In the
+    /// future, we may add logic to verify the email against the server before
+    /// returning it.
+    pub alleged_user_email: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, TS)]

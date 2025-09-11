@@ -62,6 +62,8 @@ jobs:
           components: rustfmt
       - name: cargo fmt
         run: cargo fmt -- --config imports_granularity=Item --check
+      - name: Verify codegen for mcp-types
+        run: ./mcp-types/check_lib_rs.py
 
   cargo_shear:
     name: cargo shear
@@ -188,7 +190,7 @@ jobs:
         # Tests take too long for release builds to run them on every PR.
         if: ${{ matrix.profile != 'release' }}
         continue-on-error: true
-        run: cargo nextest run --all-features --target ${{ matrix.target }}
+        run: cargo nextest run --all-features --no-fail-fast --target ${{ matrix.target }}
         env:
           RUST_BACKTRACE: 1
 
