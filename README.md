@@ -1,3 +1,19 @@
+# Telos-Codex
+
+Telos-Codex is the CIN autonomous immunity agent. Its canonical runtime integration lives at
+`MXCRDSVFT/CIN-Core/src/cincore/modules/telos_codex.py`; this repository supplies the
+Codex coding-agent integration beneath Telos policy and audit enforcement.
+
+**Repository transition:** the GitHub path is currently `MXCRDSVFT/codexCIN`.
+That is a compatibility path, not the new display name. A GitHub repository-settings
+rename is required to change its URL to `MXCRDSVFT/telos_codex`.
+No third-party agent, skill, MCP server, or playbook obtains execution permission
+merely by appearing in an external exchange.
+
+The upstream Codex CLI project documentation follows.
+
+---
+
 <h1 align="center">OpenAI Codex CLI</h1>
 
 <p align="center"><code>npm i -g @openai/codex</code><br />or <code>brew install codex</code></p>
